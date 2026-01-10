@@ -74,13 +74,15 @@ function verificaVencedor(jogador1, jogador2) {
 
         bloco1Child = bloco1.childNodes[0].className;
         bloco2Child = bloco2.childNodes[0].className;
-        bloco3Child = bloco2.childNodes[0].className;
+        bloco3Child = bloco3.childNodes[0].className;
 
         if(bloco1Child == 'x' && bloco2Child == 'x' && bloco3Child == "x") {
-            console.log("X venceu!");
+           
+            declaraVencedor('x');
 
         } else if(bloco1Child == 'o' && bloco2Child == 'o' && bloco3Child == "o") {
-            console.log("Bola venceu!");
+           
+            declaraVencedor('o');
 
         }
 
@@ -93,10 +95,12 @@ function verificaVencedor(jogador1, jogador2) {
         bloco6Child = bloco6.childNodes[0].className;
 
         if(bloco4Child == 'x' && bloco5Child == 'x' && bloco6Child == "x") {
-            console.log("X venceu!");
+            
+            declaraVencedor('x');
 
         } else if(bloco4Child == 'o' && bloco5Child == 'o' && bloco6Child == "o") {
-            console.log("Bola venceu!");
+            
+            declaraVencedor('o');
 
         }
 
@@ -109,10 +113,12 @@ function verificaVencedor(jogador1, jogador2) {
         bloco9Child = bloco9.childNodes[0].className;
 
         if(bloco7Child == 'x' && bloco8Child == 'x' && bloco9Child == "x") {
-            console.log("X venceu!");
+            
+            declaraVencedor('x');
 
         } else if(bloco7Child == 'o' && bloco8Child == 'o' && bloco9Child == "o") {
-            console.log("Bola venceu!");
+            
+            declaraVencedor('o');
 
         }
 
@@ -127,10 +133,12 @@ function verificaVencedor(jogador1, jogador2) {
         bloco7Child = bloco7.childNodes[0].className;
 
         if(bloco1Child == 'x' && bloco4Child == 'x' && bloco7Child == "x") {
-            console.log("X venceu!");
+            
+            declaraVencedor('x');
 
         } else if(bloco1Child == 'o' && bloco4Child == 'o' && bloco7Child == "o") {
-            console.log("Bola venceu!");
+            
+            declaraVencedor('o');
 
         }
 
@@ -143,10 +151,12 @@ function verificaVencedor(jogador1, jogador2) {
         bloco8Child = bloco8.childNodes[0].className;
 
         if(bloco2Child == 'x' && bloco5Child == 'x' && bloco8Child == "x") {
-            console.log("X venceu!");
-
+            
+            declaraVencedor('x');
+            
         } else if(bloco2Child == 'o' && bloco5Child == 'o' && bloco8Child == "o") {
-            console.log("Bola venceu!");
+            
+            declaraVencedor('o');
 
         }
 
@@ -159,10 +169,12 @@ function verificaVencedor(jogador1, jogador2) {
         bloco9Child = bloco9.childNodes[0].className;
 
         if(bloco3Child == 'x' && bloco6Child == 'x' && bloco9Child == "x") {
-            console.log("X venceu!");
+            
+            declaraVencedor('x');
 
         } else if(bloco3Child == 'o' && bloco6Child == 'o' && bloco9Child == "o") {
-            console.log("Bola venceu!");
+            
+            declaraVencedor('o');
 
         }
 
@@ -177,10 +189,12 @@ function verificaVencedor(jogador1, jogador2) {
         bloco9Child = bloco9.childNodes[0].className;
 
         if(bloco1Child == 'x' && bloco5Child == 'x' && bloco9Child == "x") {
-            console.log("X venceu!");
+            
+            declaraVencedor('x');     
 
         } else if(bloco1Child == 'o' && bloco5Child == 'o' && bloco9Child == "o") {
-            console.log("Bola venceu!");
+            
+            declaraVencedor('o');
 
         }
 
@@ -193,10 +207,12 @@ function verificaVencedor(jogador1, jogador2) {
         bloco7Child = bloco7.childNodes[0].className;
 
         if(bloco3Child == 'x' && bloco5Child == 'x' && bloco7Child == "x") {
-            console.log("X venceu!");
+            
+            declaraVencedor('x');
 
         } else if(bloco3Child == 'o' && bloco5Child == 'o' && bloco7Child == "o") {
-            console.log("Bola venceu!");
+            
+            declaraVencedor('o');
 
         }
 
@@ -216,6 +232,60 @@ function verificaVencedor(jogador1, jogador2) {
 
     if(cont == 9) {
 
-        console.log("deu velha!");
+        declaraVencedor('deu velha');
     }
+}
+
+// limpa o jogo, declara vencedor e atualiza o placar
+
+function declaraVencedor(vencedor) {
+
+    let placarX = document.querySelector("#placar-1");
+    let placarY = document.querySelector("#placar-2");
+    let msg = '';
+
+    if(vencedor == 'x') {
+
+        placarX.textContent = parseInt(placarX.textContent) + 1;
+        msg =  'O jogador 1 venceu!'
+    }
+
+    else if(vencedor == 'o') {
+
+        placarY.textContent = parseInt(placarY.textContent) + 1;
+        msg = 'O jogador 2 venceu!'
+    }
+
+    else {
+
+        msg = 'Deu velha!'
+    }
+
+    //Exibe mensagem
+
+    mensagemTexto.innerHTML = msg;
+    mensagem.classList.remove("hide");
+
+    //Esconde mensagem
+
+    setTimeout(function() {
+
+        mensagem.classList.add("hide");
+
+    }, 3000); 
+
+    // Zera as jogadas
+
+    jogador1 = 0;
+    jogador2 = 0;
+
+    //remove o X e O
+
+    let boxesRemover = document.querySelectorAll(".box div");
+
+    for(let i = 0; i < boxesRemover.length; i++) {
+
+        boxesRemover[i].parentNode.removeChild(boxesRemover[i]);
+    }
+
 }
