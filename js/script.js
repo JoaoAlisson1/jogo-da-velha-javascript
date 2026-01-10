@@ -1,7 +1,7 @@
 let x = document.querySelector(".x");
 let o = document.querySelector(".o");
 let boxes = document.querySelectorAll(".box");
-let botoes = document.querySelectorAll("#botoes-container buttons");
+let botoes = document.querySelectorAll("#botoes-container button");
 let mensagem = document.querySelector("#mensagem");
 let mensagemTexto = document.querySelector("#mensagem p");
 let segundoJogador;
@@ -28,6 +28,13 @@ for(let i = 0; i < boxes.length; i++) {
             if(jogador1 == jogador2) {
 
                 jogador1++;
+
+                if(segundoJogador == 'ia-jogador') {
+
+                    //funcao executar a jogada
+                    jogadaComputador();
+                    jogador2++;
+                }
             }
 
             else {
@@ -39,6 +46,28 @@ for(let i = 0; i < boxes.length; i++) {
 
         }
     })
+}
+
+// Evento para saber se são 2 jogadores o IA
+
+for(let i = 0; i < botoes.length; i++) {
+
+    botoes[i].addEventListener("click", function() {
+
+        segundoJogador = this.getAttribute("id");
+
+        for(let j = 0; j < botoes.length; j++) { // Esconde os botoes
+
+            botoes[j].style.display = 'none';
+        }
+
+        setTimeout(function() {
+
+            let container = document.querySelector("#container");
+            container.classList.remove("hide");
+
+        }, 500);
+    });
 }
 
 // Verifica quem vai jogar
@@ -288,4 +317,37 @@ function declaraVencedor(vencedor) {
         boxesRemover[i].parentNode.removeChild(boxesRemover[i]);
     }
 
+}
+
+// Executa a lógica da jogada do computador
+
+function jogadaComputador() {
+
+    let cloneO = o.cloneNode(true);
+    let cont = 0;
+    let preenchidos = 0;
+
+    for(let i = 0; i < boxes.length; i++) {
+
+        let numAleatorio = Math.floor(Math.random() * 5);
+
+        // Só preenche se estiver vázios os filhos
+        if(boxes[i].childNodes[0] == undefined) {
+
+            if(numAleatorio <= 1) {
+
+                boxes[i].appendChild(cloneO);
+                cont++
+                break;
+            }
+            // Checagem de quantas estão preechidas
+        } else {
+            preenchidos++;
+        }
+    }
+
+    if(cont == 0 && preenchidos < 9) {
+
+        jogadaComputador();
+    }
 }
